@@ -10,17 +10,17 @@ import CalendarSection from "./components/CalenderSection";
 function App() {
   return (
     <Router>
-      <div className="flex">
+      <div className="flex main_container">
         <Sidebar />
 
-        <div className="w-[74%] h-[850px] p-6 overflow-hidden">
+        <div id="app" className="w-[74%] h-[850px] p-6 ">
           <Navbar />
 
           <Routes>
             <Route
               path="/"
               element={
-                <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 mt-10 h-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 mt-2 h-full">
                   <div className="h-full">
                     <Overview />
                   </div>
@@ -30,7 +30,7 @@ function App() {
                   <div className="h-full">
                     <RecentActivity />
                   </div>
-                  <div className="h-full">
+                  <div className="h-full calender">
                     <CalendarSection />
                   </div>
                 </div>

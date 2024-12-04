@@ -12,9 +12,11 @@ function MyTasks() {
   const tasks = useSelector((state) => state.tasks.tasks);
   const [filter, setFilter] = useState("All");
   const [editTask, setEditTask] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleFilterChange = (filterType) => {
     setFilter(filterType);
+    setIsOpen(false); // Close filter options after selecting
   };
 
   const handleDelete = (id) => {
@@ -56,8 +58,8 @@ function MyTasks() {
         My Tasks
       </h2>
 
-      {/* FILTER BUTTONS */}
-      <div className="flex justify-around mb-6">
+      {/* FILTER BUTTONS) */}
+      <div className="flex justify-around mb-6 md:flex-row flex-col gap-2 md:items-center">
         {["All", "Completed", "Pending", "Overdue"].map((filterType) => (
           <button
             key={filterType}
@@ -71,6 +73,29 @@ function MyTasks() {
             {filterType} Tasks
           </button>
         ))}
+      </div>
+
+      {/* MOBILE FILTER BUTTON */}
+      <div
+        className={`${
+          isOpen ? "block" : "hidden"
+        } fixed inset-0 flex items-center justify-center bg-black bg-opacity-50`}
+      >
+        <div className="bg-[#4e5b71] p-6 rounded-lg shadow-lg">
+          {["All", "Completed", "Pending", "Overdue"].map((filterType) => (
+            <button
+              key={filterType}
+              onClick={() => handleFilterChange(filterType)}
+              className={`block px-4 py-2 rounded-lg mb-2 w-full ${
+                filter === filterType
+                  ? "bg-blue-500 text-white"
+                  : "bg-[#4e5b71] text-white hover:bg-[#3F4057]"
+              }`}
+            >
+              {filterType} Tasks
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* TASK LIST */}
@@ -138,7 +163,7 @@ function MyTasks() {
         </table>
       </div>
 
-{/* EDIT TASK  */}
+      {/* EDIT TASK  */}
       {editTask && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-[#4e5b71] p-6 rounded-lg shadow-lg w-96">
